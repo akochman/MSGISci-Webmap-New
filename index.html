@@ -268,7 +268,35 @@
 	
 	//var popups = L.layerGroup([site, cow]);
     
+	<!-- 1) Marker with Sketchfab viewer embedded	 -->
+
+	var site = L.marker([36.162660, -118.799860]).addTo(map).bindPopup('<a href="http://www.river-ridge.net/">Visit the River Ridge Ranch Site</a>'),
+		cow = L.marker([36.160757, -118.797696]).addTo(map).bindPopup('<iframe src="https://sketchfab.com/models/1e84bfc2489b433d951478f79fc7952f/embed?api_version=1.0.0&amp;api_id=653823281153884&amp;ui_infos=0&amp;ui_controls=0&amp;ui_stop=0" id="api-frame" allowfullscreen="" mozallowfullscreen="true" webkitallowfullscreen="true" width="800px" height="600px"></iframe>',
+		{maxWidth : "auto"});
+	
+        var iframe = document.getElementById( 'api-frame' );
+        var version = '1.0.0';
+        var urlid = '1e84bfc2489b433d951478f79fc7952f';
+        var client = new Sketchfab( version, iframe );
+
+        client.init( urlid, {
+            success: function onSuccess( api ){
+                //API is ready to use
+                api.start();
+            },
+            error: function onError() {
+                console.log( 'Viewer error' );
+            },
+            ui_infos: 0,
+            ui_controls: 0,
+            ui_stop: 0,
+        } );
+	
+	var popups = L.layerGroup([site, cow]);
    
+	
+	
+	
 	var basemaps = {
 		"Black and White" : Black_and_white,
 		"Topographic" : Topo,
